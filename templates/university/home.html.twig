@@ -1,0 +1,57 @@
+{# {% extends 'layout.html.twig' %} #}
+
+{% block content %}
+<h1><center>Dashboard!!!!!</center></h1>
+<h2>
+{# navigation editable #}
+
+
+{% if not document is defined or not document %}
+    {% set document = pimcore_document(8) %}
+{% endif %}
+
+
+{% set navStartNode = document.getProperty('navigationRoot') %}
+{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+    {% set navStartNode = pimcore_document(8) %}
+{% endif %}
+
+{% set mainNavigation = pimcore_build_nav({
+    active: document,
+    root: navStartNode
+}) %}
+
+{# later you can render the navigation #}
+<div class="my-menu">
+    {# you can use array for ulClass to provide depth level classes #}
+    {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+        maxDepth: 2,
+        ulClass: {
+            0: 'nav navbar-nav',
+            1: 'nav navbar-nav-one',
+            2: 'nav navbar-nav-two'
+        }
+    }) }}
+
+    {# alternatively, you can use 'default' key to apply class on all depth levels #}
+    {# {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+            maxDepth: 2,
+            ulClass: {
+                default: 'nav navbar-nav'
+            }
+    }) }} #}
+</div>
+</h2>
+<h2>
+
+{# AREA editable #}
+<div class="main-content">
+     {{ 
+        pimcore_areablock("content", {
+        "allowed": ["test-brick"]
+       })   
+     }}
+</div>
+</h2>
+{% endblock %}
+
