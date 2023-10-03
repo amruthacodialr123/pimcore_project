@@ -1,0 +1,121 @@
+{# {% extends 'layout.html.twig' %} #}
+
+{% block content %}
+<h1><center>Student Registration Form</center></h1>
+{# INPUT editable #}
+<h2>
+   <label>Name of Student</label><br>
+    {{ pimcore_input("headerLine", {'width': 300}) }}
+   </h2> 
+<h2>
+{# Numeric editable #}
+   <label>Student Age</label>
+{{ pimcore_numeric('myNumber',{
+        "width" : 300,
+        "minValue" : 0,
+        "maxValue" : 100,
+        "decimalPrecision" : 0
+    }) 
+}}
+<h2>
+{# select box editable #}
+   <label>Nationality</label><br>
+{% if editmode %}
+    {{ pimcore_select("valid_for", {
+            "store": [
+                ["indian", "Indian"],
+                ["uk", "Uk"],
+                ["usa", "Usa"]
+            ],
+            "defaultValue" : "Indian"
+        }) }}
+{% else %}
+    <p>
+        {{ "Something is valid for" | trans }}:{{ pimcore_select("valid_for").getData() | trans  }}
+    </p>
+{% endif %}
+</h2>
+<h2>
+{# date editable #}
+   <label>Date Of Birth</label><br>
+{{ pimcore_date('myDate', {
+'format': 'd.m.Y',
+'outputFormat': '%d.%m.%Y'
+})
+}}
+</h2>
+<h2>
+{# Image editable #}
+   <label>Upload Image</label><br>
+{{ pimcore_image("myImage", {
+    "title": "Drag your image here",
+    "width": 400,
+    "height": 200,
+    "thumbnail": "contentimages"
+}) }}
+</h2>
+<h2>
+{# textarea editable #}
+   <label>Address</label><br>
+   <h2>
+<p class="product-description">
+    {{ pimcore_textarea("product_description",{
+        "nl2br": true,
+        "height": 100,
+         "width": 400,
+        "placeholder": "Enter Your address here..."
+    }) }}
+</p>
+</h2>
+<h2>
+{# multiselect editable #}
+   <label>Hobbies</label><br>
+
+{% if editmode %}
+    {{ pimcore_multiselect('categories', {
+        'width': 400,
+        'height': 100,
+        'store': [
+            ['hobbies', 'Hobbies'],
+            ['drawing', 'Drawing'],
+            ['others', 'Others'],
+        ]
+    }) }}
+{% else %}
+    <p>{{ 'This page is linked to' | trans }}
+        {% for categoryKey in pimcore_multiselect('categories').getData %}
+            <span>
+            {{ categoryKey | trans }}
+        </span>
+        {% endfor %}
+        categories
+    </p>
+{% endif %}
+</h2>
+<h4>
+{# link editable #}
+   <label></label><br>
+<p>
+{{ pimcore_link('blogLink') }}
+</p>
+</h4>
+
+{# CHECKBOX editable #}
+<div class="col-sm-6">
+  {{ pimcore_checkbox("accept", {
+    "label": "Accept the terms and conditions"
+  }) }}
+
+
+{% if pimcore_checkbox("acccept").isChecked() %}
+ <p>
+    {{ pimcore_image("myImage2", {
+    "width": 100,
+    "height": 100,
+    "thumbnail": "content",
+    }) }}   
+ </p>  
+{% endif %}
+</div>
+{% endblock %}
+

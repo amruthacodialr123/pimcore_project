@@ -1,0 +1,53 @@
+{# {% extends 'layout.html.twig' %} #}
+
+{% block content %}
+<h1><center>College Information</center></h1>
+{# INPUT editable #}
+<h2>
+   <label>Name of College</label><br>
+    {{ pimcore_input("headerLine", {'width': 300}) }}
+   </h2> 
+<h2>
+{# pdf editable #}
+   <label>Upload Video </label>
+<section id="campaign_video">
+    {{ pimcore_video('campaignVideo', {
+        width: 700,
+        height: 400
+    }) }}
+</section>
+  </div>
+
+
+  {# EMBED editable #}
+     <label>More Detailes:  </label>
+
+<div class="row">
+<div class="col-sm-6">
+{{ pimcore_embed("socialWidgets", { "width": 400 }) }}
+</div>
+<h2>
+
+{# CHECKBOX editable #}
+<div class="col-sm-6">
+  {{ pimcore_checkbox("enablewhatsappno", {
+    "label": "Enable whatsapp number section"
+  }) }}
+
+
+{% if pimcore_checkbox("enablewhatsappno").isChecked() %}
+
+ <p>
+    {{ pimcore_image("myImage2", {
+    "width": 60,
+    "height": 60,
+    "thumbnail": "content",
+    }) }}   
+ </p>  
+{% endif %}
+</div>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,46 @@
+{# {% extends 'layout.html.twig' %} #}
+
+{% block content %}
+<h1><center>Course Information</center></h1>
+{# INPUT editable #}
+<h2>
+   <label>Name of Course</label><br>
+    {{ pimcore_input("headerLine", {'width': 300}) }}
+   </h2> 
+<h2>
+{# table editable #}
+   <label>Course Details</label>
+
+<div class="row">
+    <div class="col-sm-6">
+    {{ pimcore_table("productProperties", {
+        "width": 700,
+        "height": 400,
+        "defaults": {
+            "cols": 2,
+            "rows": 3,
+            "data": [
+                ["Attribute name", "Value"],
+             
+            ]
+        },
+        "class": "table-bordered"
+    })}}
+    
+    </div>
+</h2>
+<h2>
+{# pdf editable #}
+   <label>Download Brochure</label>
+<div class="col-sm-6">
+    
+     {{ pimcore_pdf("myPdf", {
+    "width": 640,
+    "height": 400,
+    "imageView": false
+  }) }}
+    </div>
+   
+  </div>
+{% endblock %}
+
